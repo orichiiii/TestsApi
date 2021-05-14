@@ -50,5 +50,47 @@ namespace TestProject1.ApiRequests.Client
 
             return ChangeNameResponse;
         }
+
+        public static User SendRequestChangePhoneNumberPost(string password, string phoneNumber, string token)
+        {
+            var client = new RestClient("https://api.newbookmodels.com/api/v1/client/change_phone/");
+            var request = new RestRequest(Method.POST);
+            var newGenaralInfoModel = new Dictionary<string, string>
+             {
+                 { "password", password },
+                 { "phone_number", phoneNumber }
+             };
+
+            request.AddHeader("content-type", "application/json");
+            request.AddHeader("authorization", token);
+            request.AddJsonBody(newGenaralInfoModel);
+            request.RequestFormat = DataFormat.Json;
+
+            var response = client.Execute(request);
+            var ChangePhoneResponse = JsonConvert.DeserializeObject<User>(response.Content);
+
+            return ChangePhoneResponse;
+        }
+
+        public static string SendRequestChangePasswordPost(string currentPassword, string newPassword, string token)
+        {
+            var client = new RestClient("https://api.newbookmodels.com/api/v1/password/change/");
+            var request = new RestRequest(Method.POST);
+            var newGenaralInfoModel = new Dictionary<string, string>
+             {
+                 { "old_password", currentPassword },
+                 { "new_password", newPassword }
+             };
+
+            request.AddHeader("content-type", "application/json");
+            request.AddHeader("authorization", token);
+            request.AddJsonBody(newGenaralInfoModel);
+            request.RequestFormat = DataFormat.Json;
+
+            var response = client.Execute(request);
+            var ChangePasswordResponse = JsonConvert.DeserializeObject<ChangePasswordResponse>(response.Content);
+
+            return ChangePasswordResponse.Token;
+        }
     }
 }

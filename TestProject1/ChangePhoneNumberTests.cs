@@ -5,12 +5,12 @@ using System.Text;
 using TestProject1.ApiRequests.Auth;
 using TestProject1.ApiRequests.Client;
 
-namespace TestProject1
+namespace ApiTests
 {
-    class UpdateGeneralInformation
+    public class ChangePhoneNumberTests
     {
         [Test]
-        public void Test2()
+        public void ChangePhoneNumber()
         {
             var user = new Dictionary<string, string>
              {
@@ -22,10 +22,9 @@ namespace TestProject1
              };
             var createdUser = AuthRequests.SendRequestClientSignUpPost(user);
 
-            var changedEmail = ClientRequests.SendRequestChangeGeneralInformationPost("Lilit", "Nombre", createdUser.TokenData.Token);
+            var changedPhone = ClientRequests.SendRequestChangePhoneNumberPost("123qwe!QWE", "1234567891", createdUser.TokenData.Token);
 
-            Assert.AreEqual("Lilit", changedEmail.FirstName);
-            Assert.AreEqual("Nombre", changedEmail.LastName);
+            Assert.AreEqual("1234567891", changedPhone.PhoneNumber);
         }
     }
 }

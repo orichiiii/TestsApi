@@ -114,6 +114,9 @@ namespace TestProject1.Models.Client
 
         [JsonProperty("last_name")]
         public string LastName { get; set; }
+
+        [JsonProperty("phone_number")]
+        public string PhoneNumber { get; set; }
     }
 
     public class TokenData
@@ -129,5 +132,11 @@ namespace TestProject1.Models.Client
 
         [JsonProperty("firebase_token_expires")]
         public string FirebaseTokenExpires { get; set; }
+    }
+
+    public class ChangePasswordResponse
+    {
+        [JsonProperty("token")]
+        public string Token { get; set; }
     }
 }
