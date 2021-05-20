@@ -1,11 +1,10 @@
-﻿using Newtonsoft.Json;
-using OpenQA.Selenium.Remote;
+﻿using ApiTests.Models.Client;
+using Newtonsoft.Json;
 using RestSharp;
 using System;
 using System.Collections.Generic;
-using TestProject1.Models.Client;
 
-namespace TestProject1.ApiRequests.Auth
+namespace ApiTests.ApiRequests.Auth
 {
     public static class AuthRequests
     {

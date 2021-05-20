@@ -1,11 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using ApiTests.Models.Client;
+using Newtonsoft.Json;
 using RestSharp;
-using System;
 using System.Collections.Generic;
-using System.Text;
-using TestProject1.Models.Client;
 
-namespace TestProject1.ApiRequests.Client
+namespace ApiTests.ApiRequests.Client
 {
     public static class ClientRequests
     {
@@ -30,14 +28,18 @@ namespace TestProject1.ApiRequests.Client
             return ChangeEmailResponse.Email;
         }
 
-        public static User SendRequestChangeGeneralInformationPost(string firstName, string lastName, string token)
+        public static User SendRequestChangeGeneralInforNameLastNamePatch(string firstName, string lastName, string token)
         {
             var client = new RestClient("https://api.newbookmodels.com/api/v1/client/self/");
             var request = new RestRequest(Method.PATCH);
             var newGenaralInfoModel = new Dictionary<string, string>
              {
                  { "first_name", firstName },
-                 { "last_name", lastName }
+                 { "last_name", lastName },
+                 //{"location_admin1_code", "TN" },
+                 //{"location_city_name", "Gatlinburg" },
+                 {"location_name", "Gatlinburg, TN 37738, USA"},
+                 {"location_timezone", "America/New_York" }
              };
 
             request.AddHeader("content-type", "application/json");
@@ -46,9 +48,33 @@ namespace TestProject1.ApiRequests.Client
             request.RequestFormat = DataFormat.Json;
 
             var response = client.Execute(request);
-            var ChangeNameResponse = JsonConvert.DeserializeObject<User>(response.Content);
+            var ChangeGeneralInfoResponse = JsonConvert.DeserializeObject<User>(response.Content);
 
-            return ChangeNameResponse;
+            return ChangeGeneralInfoResponse;
+        }
+
+        public static ClientProfile SendRequestChangeGeneralInformationLocationIndustryPatch(string industry, string token)
+        {
+            var client = new RestClient("https://api.newbookmodels.com/api/v1/client/profile/");
+            var request = new RestRequest(Method.PATCH);
+            var newGenaralInfoModel = new Dictionary<string, string>
+             {
+                 {"industry", industry },
+                 //{"location_admin1_code", "TN" },
+                 //{"location_city_name", "Gatlinburg" },
+                 {"location_name", "Gatlinburg, TN 37738, USA"},
+                 {"location_timezone", "America/New_York" }
+             };
+
+            request.AddHeader("content-type", "application/json");
+            request.AddHeader("authorization", token);
+            request.AddJsonBody(newGenaralInfoModel);
+            request.RequestFormat = DataFormat.Json;
+
+            var response = client.Execute(request);
+            var ChangeGeneralInfoResponse = JsonConvert.DeserializeObject<ClientProfile>(response.Content);
+
+            return ChangeGeneralInfoResponse;
         }
 
         public static User SendRequestChangePhoneNumberPost(string password, string phoneNumber, string token)
