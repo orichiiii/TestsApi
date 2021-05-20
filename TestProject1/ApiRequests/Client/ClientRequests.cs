@@ -51,7 +51,7 @@ namespace ApiTests.ApiRequests.Client
             return new ResponseModel<ClientAuthModel> { Model = changeGeneralInfoResponse, Response = response };
         }
 
-        public static ResponseModel<ClientAuthModel> SendRequestChangeGeneralInformationLocationIndustryPatch(string industry, string token)
+        public static ClientProfile SendRequestChangeGeneralInformationLocationIndustryPatch(string industry, string token)
         {
             var client = new RestClient("https://api.newbookmodels.com/api/v1/client/profile/");
             var request = new RestRequest(Method.PATCH);
@@ -68,9 +68,9 @@ namespace ApiTests.ApiRequests.Client
             request.RequestFormat = DataFormat.Json;
 
             var response = client.Execute(request);
-            var changeGeneralInfoResponse = JsonConvert.DeserializeObject<ClientAuthModel>(response.Content);
+            var changeGeneralInfoResponse = JsonConvert.DeserializeObject<ClientProfile>(response.Content);
 
-            return new ResponseModel<ClientAuthModel> { Model = changeGeneralInfoResponse, Response = response };
+            return changeGeneralInfoResponse;
         }
 
         public static ResponseModel<ClientAuthModel> SendRequestChangePhoneNumberPost(string password, string phoneNumber, string token)
