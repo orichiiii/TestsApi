@@ -1,4 +1,5 @@
-﻿using ApiTests.Models.Client;
+﻿using ApiTests.Models;
+using ApiTests.Models.Client;
 using Newtonsoft.Json;
 using RestSharp;
 using System;
@@ -23,7 +24,7 @@ namespace ApiTests.ApiRequests.Auth
             return createdUser;
         }
 
-        public static ResponceModel<ClientAuthModel> SendRequestClientSignInPost(Dictionary<string, string> user)
+        public static ResponseModel<ClientAuthModel> SendRequestClientSignInPost(Dictionary<string, string> user)
         {
             var client = new RestClient("https://api.newbookmodels.com/api/v1/auth/signin/");
             var request = new RestRequest(Method.POST);
@@ -35,7 +36,7 @@ namespace ApiTests.ApiRequests.Auth
             var response = client.Execute(request);
             var authUser = JsonConvert.DeserializeObject<ClientAuthModel>(response.Content);
 
-            return new ResponceModel<ClientAuthModel> { Model = authUser, Response = response };
+            return new ResponseModel<ClientAuthModel> { Model = authUser, Response = response };
         }
 
         public static ClientAuthModel CreateUserViaApi()
@@ -59,12 +60,6 @@ namespace ApiTests.ApiRequests.Auth
             var createdUser = JsonConvert.DeserializeObject<ClientAuthModel>(response.Content);
 
             return createdUser;
-        }
-
-        public class ResponceModel<T>
-        {
-            public T Model { get; set; }
-            public IRestResponse Response { get; set; }
         }
     }
 }

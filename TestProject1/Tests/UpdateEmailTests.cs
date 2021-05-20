@@ -11,8 +11,7 @@ namespace ApiTests
         public void ChangeEmail()
         {
             var expected = $"asda2sd2asd{DateTime.Now:ddyyyymmHHmmssffff}@asdasd.ert";
-
-            var createdUser = AuthRequests.SendRequestClientSignUpPost(Constant.user);
+            var createdUser = AuthRequests.SendRequestClientSignUpPost(NewUser.GetNewUser());
 
             var changedEmail = ClientRequests.SenRequestChangeClientEmailPost("123qwe!QWE", expected, createdUser.TokenData.Token);
 

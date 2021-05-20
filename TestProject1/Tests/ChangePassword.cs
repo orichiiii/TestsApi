@@ -11,7 +11,7 @@ namespace ApiTests
         [Test]
         public void ChangePassword()
         {
-            var createdUser = AuthRequests.SendRequestClientSignUpPost(Constant.user);
+            var createdUser = AuthRequests.SendRequestClientSignUpPost(NewUser.GetNewUser());
 
             ClientRequests.SendRequestChangePasswordPost("123qwe!QWE", "Aa!234567", createdUser.TokenData.Token);
 
